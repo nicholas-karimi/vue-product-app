@@ -6,14 +6,12 @@ var app = new Vue({
     	// attribute binding
         brand: 'Nski',
         product: 'Socks',
-        description: "These are happy socks made of pure cotton grown in Kenya!",
-
-        image: './assets/fancy.jpeg',
+        selectedVariant: 0,
         url: 'https://www.google.com/',
 
         //conditional
         // inventory: 100,
-        inStock: false,
+        // inStock: false, - replaced with computed property
         // list rendering
         details: ['80% cotton', '20 % polyester', 'Gender-neutral'],
 
@@ -21,19 +19,22 @@ var app = new Vue({
             {
                 variantId: 2345,
                 variantColor: 'green',
-                variantImage: './assets/green.jpeg'
+                variantImage: './assets/green.jpeg',
+                variantQuantity: 10
             },
             {
                 variantId: 2018,
                 variantColor: 'blue',
-                variantImage: './assets/fancy.jpeg'
+                variantImage: './assets/fancy.jpeg',
+                variantQuantity: 0
 
             }
         ],
 
         sizes: ['M', 'L', 'XL', 'XXL', 'S'],
 
-        cart: 0
+        cart: 0,
+        onSale: true
 
 
     },
@@ -45,15 +46,29 @@ var app = new Vue({
         removeItem(){
             this.cart -= 1;
         },
-        updateProduct(variantImage)
+        updateProduct(index)
         {
-            this.image = variantImage;
+            this.selectedVariant = index;
+            console.log(index);
         }
     },
     // use computed properties to add product & brand
     computed: {
         title(){
             return this.brand + ' ' + this.product;
+        },
+        image(){
+            return this.variants[this.selectedVariant].variantImage;
+        },
+        inStock(){
+            return this.variants[this.selectedVariant].variantQuantity;
+        },
+        sale(){
+            if (this.onSale){
+           
+                return ` Our ${this.brand} ${this.product} is on SALE`;
+
+            }
         }
     }
 })

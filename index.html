@@ -16,7 +16,8 @@
         			<!-- <h1>Product goes here!</h1> -->
                     <!-- <h1>{{ brand }} {{ product }}</h1> -->
                     <h1>{{ title }}</h1>
-	            	<p v-show="inStock">In Stock</p>
+                    <p v-show="inStock">In Stock</p>
+                    <p>{{sale}}</p>
 	            	<!-- <p v-if="inventory <= 10 && inventory > 0">In Stock</p>
 	            	<p v-else="inventory">Out of Stock</p> -->
 
@@ -26,10 +27,10 @@
 					<ul>
 						<li v-for="detail in details" >{{ detail }}</li>
 					</ul>
-                    <div class="color-box" v-for="variant in variants"
+                    <div class="color-box" v-for="(variant, index) in variants"
                     :key="variant.variantId"
                     :style="{backgroundColor: variant.variantColor}"
-                    @mouseover="updateProduct(variant.variantImage)">
+                    @mouseover="updateProduct(index)">
                         <!-- <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p> -->
 
                     </div>
@@ -46,6 +47,7 @@
                     <div class="cart">
                         <p>Cart {{cart}}</p>
                     </div>
+                   
         		</div>
 
         	</div>
